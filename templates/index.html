@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Webpage Title -->
+    <title>Home | IBNSTWN</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta property="og:title" content="Sweeter - the sweetest site"/>
+    <meta property="og:description" content="mini project for Web Plus"/>
+    <meta property="og:image" content="{{ url_for('static', filename='ogimage.png') }}"/>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- Font Awesome CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Stylish&display=swap" rel="stylesheet">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="{{ url_for('static', filename='myjs.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            get_posts();
+
+            // Toggle dark mode
+            const toggleSwitch = document.querySelector('.dark-mode-toggle');
+            toggleSwitch.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+            });
+        });
+    </script>
+
+    <style>
+        .dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        
+        .dark-mode .navbar.is-white {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .navbar-item, .dark-mode .navbar-item:hover {
+            color: #e0e0e0;
+        }
+
+        .dark-mode .button.is-sparta {
+            background-color: #333333;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .button.is-sparta.is-outlined {
+            border-color: #555555;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .box {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+        .modal-content {
+            width: 600px;
+            max-width: 80%;
+        }
+
+        .dark-mode .modal-content {
+            background-color: #2c2c2c;
+            
+        }
+
+        .dark-mode .input.is-rounded, .dark-mode .textarea {
+            background-color: #333333;
+            color: #e0e0e0;
+            border: 1px solid #555555;
+        }
+
+        .dark-mode .icon.is-small .fa {
+            color: #e0e0e0;
+        }
+        .dark-mode .is-sparta {
+            color: #ffffff !important;
+        }
+        .dark-mode .is-sparta1 {
+            color: #ffffff !important;
+        }
+        .dark-mode .is-sparta3{
+            color: #CCCCCC;
+        }
+        .dark-mode ::placeholder {
+            color: #CCCCCC; /* Atur warna placeholder untuk mode gelap */
+            opacity: 1; /* Tetapkan opacity agar placeholder terlihat dengan jelas */
+        }
+        
+        .dark-mode :-ms-input-placeholder {
+            color: #CCCCCC; /* Atur warna placeholder untuk mode gelap di Internet Explorer */
+        }
+        
+        .dark-mode ::-ms-input-placeholder {
+            color: #CCCCCC; /* Atur warna placeholder untuk mode gelap di Microsoft Edge */
+        }
+        .media-left .image.is-rounded img {
+            width: 100%; /* Atur lebar gambar */
+            height: 100%; /* Atur tinggi gambar */
+        }
+        body {
+            background-color: #2B2B2B; /* Warna latar belakang gelap untuk nuansa malam */
+            background-image: 
+                linear-gradient(45deg, #3C3F41 25%, transparent 25%, transparent 75%, #3C3F41 75%, #3C3F41),
+                linear-gradient(135deg, #3C3F41 25%, transparent 25%, transparent 75%, #3C3F41 75%, #3C3F41),
+                linear-gradient(45deg, #2E3D34 25%, transparent 25%, transparent 75%, #2E3D34 75%, #2E3D34),
+                linear-gradient(135deg, #2E3D34 25%, transparent 25%, transparent 75%, #2E3D34 75%, #2E3D34);
+            background-size: 60px 60px; /* Ukuran pola */
+            background-position: 0 0, 30px 30px, 0 30px, 30px 0; /* Posisi pola */
+            animation: animateBackground 30s linear infinite; /* Animasi latar belakang yang lebih santai */
+        }
+        
+        @keyframes animateBackground {
+            0% {background-position: 0 0, 30px 30px, 0 30px, 30px 0;}
+            50% {background-position: 60px 60px, 30px 90px, 60px 30px, 90px 0;}
+            100% {background-position: 0 0, 30px 30px, 0 30px, 30px 0;}
+        }
+        
+        /* Bintang-bintang kecil di langit */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Ccircle cx="10" cy="10" r="2" fill="white" /%3E%3Ccircle cx="30" cy="30" r="1.5" fill="white" /%3E%3Ccircle cx="50" cy="50" r="2.5" fill="white" /%3E%3Ccircle cx="70" cy="70" r="2" fill="white" /%3E%3Ccircle cx="90" cy="90" r="1" fill="white" /%3E%3C/svg%3E') repeat;
+            animation: twinkling 10s infinite;
+        }
+        
+        @keyframes twinkling {
+            0%, 100% {opacity: 0.8;}
+            50% {opacity: 1;}
+        }
+        
+        @media screen and (max-width: 768px) {
+            .dark-mode-toggle,
+            .button.level-item {
+                display: inline-block;
+            }
+    
+            .media-right {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
+
+        .footer{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding:  2rem 9%;
+            background: var(--second-bg-color);
+        }
+        
+        .footer-text p{
+            font-size: 1.6rem;
+            color: #CCCCCC;
+        }
+        .footer-iconTop a{
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: .8rem;
+            background: var(--main-color);
+            border-radius: .8rem;
+        }
+        .footer-iconTop a:hover{
+            box-shadow: 0 0 1;
+        }
+        .footer-iconTop a i{
+            font-size: 2.4rem;
+            color: var(--second-bg-color);
+        }
+        .is-sparta {
+            color: #920016 !important;
+          }
+        .is-sparta3{
+            color: black !important;
+        }
+        
+    </style>
+</head>
+<body class="has-navbar-fixed-top">
+    <nav class="navbar is-fixed-top is-white" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <img src="{{ url_for('static', filename='logo.png') }}">
+                <strong class="is-sparta1"
+                        style="font-family: 'Stylish', sans-serif;font-size: larger;">IBNSTWN</strong>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <button class="button is-sparta3 is-outlined dark-mode-toggle is-small is-hidden-tablet-only">Dark Mode</button>
+
+                    <figure class="media-right is-hidden-mobile" style="align-self: center; margin-right: 10px;">
+                        <a class="image is-32x32" href="/user/{{ user_info.username }}">
+                            <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}" style="border-radius: 50%; width: 32px; height: 32px;">
+                        </a>
+                    </figure>
+                    
+                    <a class="button level-item has-text-centered is-sparta3 is-outlined is-small is-hidden-tablet-only" aria-label="logout" onclick="sign_out()">
+                        Sign Out&nbsp;&nbsp;&nbsp;<span class="icon is-small is-medium"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                    </a>
+                    
+                    
+                
+                    
+                    <div class="control">
+                            
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="section">
+        <article class="media">
+            <figure class="media-left" style="align-self: center">
+                <a class="image is-32x32" href="/user/{{ user_info.username }}">
+                    <img class="is-rounded" src="{{ url_for('static', filename=user_info.profile_pic_real) }}">
+                </a>
+            </figure>
+            <div class="media-content">
+                <div class="field">
+                    <p class="control">
+                        <input id="input-post" class="input is-rounded" placeholder="What are you thinking about?"
+                               onclick='$("#modal-post").addClass("is-active")'>
+                    </p>
+                </div>
+            </div>
+        </article>
+        <div class="modal" id="modal-post">
+            <div class="modal-background" onclick='$("#modal-post").removeClass("is-active")'></div>
+            <div class="modal-content">
+                <div class="box">
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="field">
+                                <p class="control">
+                                    <textarea id="textarea-post" class="textarea"
+                                              placeholder="What are you thinking about?"></textarea>
+                                </p>
+                            </div>
+                            <nav class="level is-mobile">
+                                <div class="level-left">
+                                </div>
+                                <div class="level-right">
+                                    <div class="level-item">
+                                        <a class="button is-sparta" onclick="post()">Create a post</a>
+                                    </div>
+                                    <div class="level-item">
+                                        <a class="button is-sparta is-outlined"
+                                           onclick='$("#modal-post").removeClass("is-active")'>Cancel</a>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close"
+                    onclick='$("#modal-post").removeClass("is-active")'></button>
+        </div>
+    </section>
+    <section class="section">
+        <div id="post-box" class="container">
+            <div class="box">
+                <article class="media">
+                    <div class="media-left">
+                        <a class="image is-64x64" href="#">
+                            <img class="is-rounded"
+                                 src={{ url_for("static", filename="profile_pics/profile_placeholder.png") }} alt="Image">
+                        </a>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>Somebody</strong> <small>@somebody</small>
+                                <small>10 minutes ago</small>
+                                <br />
+                                Comment section
+                            </p>
+                        </div>
+                        <nav class="level is-mobile">
+                            <div class="level-left">
+                                <a class="level-item is-sparta" aria-label="heart"
+                                   onclick="toggle_like('', 'heart')">
+                                    <span class="icon is-small"><i class="fa fa-heart"
+                                                                   aria-hidden="true"></i></span>&nbsp;<span
+                                        class="like-num">2.7k</span>
+                                </a>
+                            </div>
+                        </nav>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer">
+            <div class="footer-text">
+                <p>Copyright &copy; 2024 by Muhammad Ibnu Setiawan my website sosmed.</p>
+            </div>
+
+            <div class="footer-iconTop">
+                <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
